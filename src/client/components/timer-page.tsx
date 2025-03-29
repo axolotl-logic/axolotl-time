@@ -1,9 +1,7 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import useInterval from "use-interval";
 import { padTime, splitTimeMs } from "~/lib/time";
 import { VisualTimer } from "~/client/components/visual-timer";
-import { db } from "../db";
-import { handleError } from "~/lib/error";
 import { Link } from "./ui/link";
 
 interface TimerPageProps {
@@ -27,18 +25,6 @@ export function TimerPage({
     setPeriodTime(getPeriodTime({ workLength, breakLength, startTime }));
   }, [workLength, breakLength, startTime]);
   useInterval(syncTime, 50);
-
-  useEffect(() => {
-    db.timer
-      .add({
-        workLength,
-        breakLength,
-        startTime,
-        others: 0,
-        createdAt: Date.now(),
-      })
-      .catch(handleError);
-  }, [workLength, breakLength, startTime]);
 
   const progress = getProgress(
     { periodTime },

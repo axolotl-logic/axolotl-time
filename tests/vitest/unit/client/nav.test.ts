@@ -1,6 +1,5 @@
 import { expect, test } from "vitest";
-
-import { getSessionId, navigate } from "./nav";
+import { getSessionId, navigate } from "~/client/nav";
 
 test("getSessionId should set and stabalize", () => {
   const expected = getSessionId();
