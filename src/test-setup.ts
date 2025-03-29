@@ -1,5 +1,4 @@
 import { cleanup } from "@testing-library/react";
-import { fail } from "assert";
 import "fake-indexeddb/auto";
 import { afterEach, beforeEach, vi } from "vitest";
 import { db } from "./client/db";
