@@ -4,10 +4,9 @@ subgraph 0["src"]
 subgraph 1["app"]
 2["layout.tsx"]
 6["manifest.ts"]
-9["manifest.test.ts"]
-A["page.tsx"]
-subgraph Z["timer"]
-10["page.tsx"]
+9["page.tsx"]
+subgraph Y["timer"]
+Z["page.tsx"]
 end
 end
 subgraph 3["client"]
@@ -16,106 +15,80 @@ subgraph 4["styles"]
 end
 subgraph 7["components"]
 8["loading-page.tsx"]
-B["router.tsx"]
-D["home-page.tsx"]
-E["timer-form.tsx"]
-N["timer-page.tsx"]
-subgraph O["ui"]
-P["link.tsx"]
-16["button.test.tsx"]
-17["button.tsx"]
-19["link.test.tsx"]
+A["router.tsx"]
+C["home-page.tsx"]
+D["timer-form.tsx"]
+M["timer-page.tsx"]
+subgraph N["ui"]
+O["link.tsx"]
+10["button.tsx"]
 end
-Q["visual-timer.tsx"]
-11["home-page.test.tsx"]
-12["loading-page.test.tsx"]
-13["router.test.tsx"]
-14["timer-form.test.tsx"]
-15["timer-page.test.tsx"]
-1A["visual-timer.test.tsx"]
+P["visual-timer.tsx"]
 end
-F["nav.ts"]
-G["routes.ts"]
-H["db.ts"]
-subgraph K["hooks"]
-L["useUserId.ts"]
-R["sync.ts"]
+E["nav.ts"]
+F["routes.ts"]
+G["db.ts"]
+subgraph J["hooks"]
+K["useUserId.ts"]
+Q["sync.ts"]
 end
-1B["db.test.ts"]
-1C["nav.test.ts"]
 end
-subgraph I["lib"]
-J["error.ts"]
-M["time.ts"]
-18["utils.ts"]
+subgraph H["lib"]
+I["error.ts"]
+L["time.ts"]
+11["utils.ts"]
 end
-subgraph S["server"]
-subgraph T["actions"]
-U["index.ts"]
+subgraph R["server"]
+subgraph S["actions"]
+T["index.ts"]
 end
-subgraph V["db"]
-W["schema.ts"]
-X["index.ts"]
+subgraph U["db"]
+V["schema.ts"]
+W["index.ts"]
 end
-Y["env.ts"]
+X["env.ts"]
 end
-1D["test-setup.ts"]
+12["test-setup.ts"]
 end
-C["assert"]
+B["assert"]
 2-->6
 2-->8
 2-->5
-9-->6
+9-->A
+A-->C
+A-->M
+A-->G
+A-->Q
+A-->K
+A-->E
+A-->F
+A-->L
 A-->B
-B-->D
-B-->N
-B-->H
-B-->R
-B-->L
-B-->F
-B-->G
-B-->M
-B-->C
+C-->D
 D-->E
+D-->G
+D-->K
+D-->I
+D-->L
 E-->F
-E-->H
-E-->L
-E-->J
-E-->M
-F-->G
-F-->H
-F-->G
-F-->J
-N-->H
-N-->P
-N-->Q
-N-->J
-N-->M
-P-->F
-P-->G
-R-->L
-R-->H
-R-->J
-R-->M
-R-->U
-U-->W
-U-->X
-X-->W
-X-->Y
-10-->B
-10-->M
-11-->D
-12-->8
-13-->B
-13-->M
-14-->E
-15-->N
-15-->M
-16-->17
-17-->18
-19-->P
-1A-->Q
-1B-->H
-1C-->F
-1D-->H
-1D-->C
+E-->G
+E-->F
+E-->I
+M-->O
+M-->P
+M-->L
+O-->E
+O-->F
+Q-->K
+Q-->G
+Q-->I
+Q-->L
+Q-->T
+T-->V
+T-->W
+W-->V
+W-->X
+Z-->A
+Z-->L
+10-->11
+12-->G
