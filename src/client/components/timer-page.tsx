@@ -1,6 +1,6 @@
-import { useCallback, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import useInterval from "use-interval";
-import { padTime, splitTimeMs } from "~/lib/time";
+import { naturalToStr, padTime, splitTimeMs } from "~/lib/time";
 import { VisualTimer } from "~/client/components/visual-timer";
 import { Link } from "./ui/link";
 
@@ -17,7 +17,7 @@ export function TimerPage({
   startTime,
   others,
 }: TimerPageProps) {
-  const [periodTime, setPeriodTime] = useState(
+  const [periodTime, setPeriodTime] = useState(() =>
     getPeriodTime({ workLength, breakLength, startTime }),
   );
 
@@ -32,9 +32,9 @@ export function TimerPage({
   );
 
   const status = getStatus({ periodTime }, { workLength, breakLength });
-  const { hours, minutes, seconds } = getCountdown(
-    { periodTime, status },
-    { workLength, breakLength },
+  const { hours, minutes, seconds } = useMemo(
+    () => getCountdown({ periodTime, status }, { workLength, breakLength }),
+    [periodTime, status, workLength, breakLength],
   );
 
   return (
@@ -53,12 +53,14 @@ export function TimerPage({
         <p className="text-lg italic">
           <span className="animate-fade-in-slow">
             {status === "work" ? "Working" : "Partying"}
-            {` in this room with ${others} others`}
+            {` in this room with ${naturalToStr(others)} others`}
           </span>
         </p>
       </div>
       <div className="self-start">
-        <Link route={{ page: "home" }}>Home</Link>
+        <Link data-testid="home-button" route={{ page: "home" }}>
+          Home
+        </Link>
       </div>
     </main>
   );

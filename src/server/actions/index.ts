@@ -50,7 +50,7 @@ export async function ping(
         eq(announces.startTime, startTime),
       ),
     );
-  if (!buddies?.[0]) {
+  if (!buddies[0]) {
     throw Error("Unexpected response from database");
   }
 

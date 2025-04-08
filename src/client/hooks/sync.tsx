@@ -1,4 +1,6 @@
-import { db, type TimerState } from "~/client/db";
+"use client";
+
+import { putTimer, useTimer } from "~/client/db";
 import { useCallback, useEffect } from "react";
 import { handleError } from "~/lib/error";
 import { ping } from "~/server/actions";
@@ -6,8 +8,13 @@ import { MINUTE } from "~/lib/time";
 import { useInterval } from "usehooks-ts";
 import { useUserId } from "./useUserId";
 
-export function useSync(timer?: TimerState) {
+export function Sync() {
+  useSync();
+  return <></>;
+}
+export function useSync() {
   const userId = useUserId();
+  const timer = useTimer();
 
   const syncWithServer = useCallback(() => {
     if (!timer) {
@@ -16,14 +23,21 @@ export function useSync(timer?: TimerState) {
     const { workLength, breakLength, startTime } = timer;
 
     ping(userId, workLength, breakLength, startTime)
-      .then(({ buddiesCount }) => {
-        db.timer.add({ ...timer, others: buddiesCount }).catch(handleError);
+      .then(async ({ buddiesCount }) => {
+        await putTimer({
+          workLength,
+          breakLength,
+          startTime,
+          others: buddiesCount,
+        });
       })
-      .catch((err) => {
+      .catch((err: unknown) => {
         handleError(err);
       });
   }, [userId, timer]);
 
   useInterval(syncWithServer, 10 * MINUTE);
-  useEffect(() => syncWithServer(), [syncWithServer]);
+  useEffect(() => {
+    syncWithServer();
+  }, [syncWithServer]);
 }

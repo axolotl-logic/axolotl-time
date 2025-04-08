@@ -1,7 +1,7 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import { Router } from "~/client/components/router";
+import { TimerPage } from "~/client/components/timer-page";
 import { MINUTE } from "~/lib/time";
 
 export default function Page() {
@@ -20,9 +20,5 @@ export default function Page() {
   const startTimeUser = Number(params.get("startTime"));
   const startTime = Number.isNaN(startTimeUser) ? 0 : startTimeUser;
 
-  return (
-    <Router
-      defaultRoute={{ page: "timer", workLength, breakLength, startTime }}
-    />
-  );
+  return <TimerPage {...{ others: 0, workLength, breakLength, startTime }} />;
 }

@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { TimerForm } from "./timer-form";
 
 import { LuExternalLink } from "react-icons/lu";
@@ -9,8 +8,7 @@ export function HomePage() {
       <h1 className="text-neutral-200">Get ready to work!</h1>
       <div className="flex items-center">
         <div>
-          <Image
-            priority={true}
+          <img
             className="animate-fancy-in hidden sm:block"
             alt="adorable axolotl"
             src="/mascot-medium.png"

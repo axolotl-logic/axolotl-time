@@ -1,7 +1,5 @@
-"use client";
-
-import { Router } from "~/client/components/router";
+import { HomePage } from "~/client/components/home-page";
 
 export default function Page() {
-  return <Router defaultRoute={{ page: "home" }} />;
+  return <HomePage />;
 }

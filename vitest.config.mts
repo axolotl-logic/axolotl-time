@@ -5,9 +5,15 @@ import tsconfigPaths from "vite-tsconfig-paths";
 export default defineConfig({
   plugins: [tsconfigPaths(), react()],
   test: {
-    dir: "./tests/vitest/",
-    environment: "jsdom",
-    setupFiles: "src/test-setup.ts",
+    dir: "./tests/vitest",
+    browser: {
+      provider: "playwright",
+      enabled: true,
+      headless: true,
+      instances: [{ browser: "chromium" }],
+    },
+    testTimeout: 1000 * 60,
+    setupFiles: "./tests/vitest/setup.ts",
     coverage: {
       reportsDirectory: "./reports/coverage",
       provider: "istanbul",

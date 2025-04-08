@@ -1,18 +1,12 @@
 "use client";
 
-import { type MouseEventHandler } from "react";
-
-import { useLiveQuery } from "dexie-react-hooks";
-
 // react-hook-form
 import { useForm } from "react-hook-form";
 
 // Ours - Utils
 import { timeInWords } from "~/lib/time";
-import { db } from "~/client/db";
-import { useUserId } from "~/client/hooks/useUserId";
-import { handleError } from "~/lib/error";
-import { navigate } from "../nav";
+import { useTimer } from "~/client/db";
+import { Button } from "./ui/button";
 
 const TIME_PRESETS = [
   // 10 minutes
@@ -34,18 +28,19 @@ const TIME_PRESETS = [
 ].map((minutes) => minutes * 60 * 1000);
 
 const DEFAULT_FORM = {
-  workLength: TIME_PRESETS[5]!,
-  breakLength: TIME_PRESETS[0]!,
+  workLength: TIME_PRESETS[5],
+  breakLength: TIME_PRESETS[0],
   sync: true,
 };
 
 type FormValues = typeof DEFAULT_FORM;
 
 export function TimerForm() {
-  const userId = useUserId();
-  const timer = useLiveQuery(async () => {
-    return await db.timer.orderBy("createdAt").last();
-  });
+  const timer: {
+    startTime: number;
+    breakLength: number;
+    workLength: number;
+  } | null = useTimer();
 
   const { register, watch } = useForm<FormValues>({
     defaultValues: {
@@ -56,30 +51,15 @@ export function TimerForm() {
   });
 
   const sync = watch("sync");
-  const breakLength = watch("breakLength");
-  const workLength = watch("workLength");
-
-  const onSubmit: MouseEventHandler<HTMLButtonElement> = (e) => {
-    e?.preventDefault();
-
-    const startTime = sync ? 0 : Date.now();
-
-    const timer = {
-      userId,
-      workLength: Number(workLength),
-      breakLength: Number(breakLength),
-      startTime: Number(startTime),
-      createdAt: Date.now(),
-      others: 0,
-    };
-
-    db.timer.add(timer).catch(handleError);
-
-    navigate({ page: "timer", ...timer });
-  };
+  const startTime = sync ? 0 : Date.now();
 
   return (
-    <div role="form" className="flex flex-col gap-4">
+    <form
+      method="GET"
+      action="/timer"
+      role="form"
+      className="flex flex-col gap-4"
+    >
       <div className="flex flex-wrap gap-2">
         <label className="select select-primary">
           <span className="label">Work for</span>
@@ -115,12 +95,19 @@ export function TimerForm() {
             {...register("sync", { required: true })}
           />
         </label>
+        <input
+          readOnly
+          className="aria-hidden hidden"
+          id="startTime"
+          name="startTime"
+          value={startTime}
+        />
       </div>
       <div>
-        <button onClick={onSubmit} className="btn btn-primary btn-sm">
+        <Button data-testid="timer-start" type="submit">
           Start
-        </button>
+        </Button>
       </div>
-    </div>
+    </form>
   );
 }

@@ -5,6 +5,7 @@ import { Analytics } from "@vercel/analytics/react";
 import { AppDescription, AppName } from "./manifest";
 import { Suspense } from "react";
 import { LoadingPage } from "~/client/components/loading-page";
+import { Sync } from "~/client/hooks/sync";
 
 export const metadata: Metadata = {
   title: AppName,
@@ -23,6 +24,7 @@ export default function RootLayout({
         >
           <Suspense fallback={<LoadingPage />}>{children}</Suspense>
         </div>
+        <Sync />
         <Analytics />
       </body>
     </html>

@@ -1,9 +1,11 @@
+import { assert } from "./error";
+
 const msPerSecond = 1000;
 const msPerMinute = msPerSecond * 60;
 const msPerHour = msPerMinute * 60;
 
 export const SECOND = msPerSecond;
-export const MINUTE = msPerMinute;
+export const MINUTE = msPerHour;
 export const HOUR = msPerHour;
 
 interface Time {
@@ -60,7 +62,16 @@ export function timeInWords(timeMs: number) {
     Object.entries(timeComps)
       .filter((kv) => kv[0] !== "ms")
       .filter((kv) => kv[1] > 0)
-      .map(([key, value]) => `${value} ${key}`)
+      .map(
+        ([key, value]) => `${naturalToStr(value as number)} ${key.toString()}`,
+      )
       .join(", ") || "0 seconds"
   );
+}
+
+export function naturalToStr(n: number): string {
+  assert(!isNaN(n), "naturalToString expected positive number, got NaN");
+  assert(n >= 0, "naturalToString expected positive number, got negative");
+
+  return n.toString();
 }

@@ -1,7 +1,7 @@
-import { useMemo, type ReactNode } from "react";
-import { type Route, routeToUrl } from "~/client/routes";
+import { type ReactNode } from "react";
+import { routeToUrl } from "~/client/nav";
 
-import { navigate } from "~/client/nav";
+import { type Route } from "~/client/db";
 
 export function Link({
   route,
@@ -10,14 +10,10 @@ export function Link({
   route: Route;
   children: ReactNode;
 }) {
-  const href = useMemo(() => routeToUrl(route), [route]);
+  const href = routeToUrl(route);
 
   return (
     <a
-      onClick={async (e) => {
-        e.preventDefault();
-        navigate(route);
-      }}
       href={href}
       className="p-4 text-blue-400 underline hover:cursor-pointer hover:text-purple-400"
     >

@@ -1,5 +1,8 @@
 {
   "compilerOptions": {
+    "types": [
+      "@vitest/browser/providers/playwright"
+    ],
     /* Base Options: */
     "esModuleInterop": true,
     "skipLibCheck": true,
