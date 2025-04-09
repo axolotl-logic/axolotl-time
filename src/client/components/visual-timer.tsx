@@ -21,7 +21,7 @@ export function VisualTimer({
       className={`radial-progress text-5xl ${radialColor}`}
       style={
         {
-          "--value": Math.floor(progress),
+          "--value": Math.floor(progress * 100),
           "--size": "300px",
           "--thickness": "35px",
         } as React.CSSProperties
