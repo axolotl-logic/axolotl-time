@@ -12,15 +12,22 @@ export function Sync() {
   useSync();
   return <></>;
 }
+
 export function useSync() {
   const userId = useUserId();
   const timer = useTimer();
 
+  const workLength = timer?.workLength;
+  const breakLength = timer?.breakLength;
+  const startTime = timer?.startTime;
   const syncWithServer = useCallback(() => {
-    if (!timer) {
+    if (
+      workLength === undefined ||
+      breakLength === undefined ||
+      startTime === undefined
+    ) {
       return;
     }
-    const { workLength, breakLength, startTime } = timer;
 
     ping(userId, workLength, breakLength, startTime)
       .then(async ({ buddiesCount }) => {
@@ -34,9 +41,10 @@ export function useSync() {
       .catch((err: unknown) => {
         handleError(err);
       });
-  }, [userId, timer]);
+  }, [userId, workLength, breakLength, startTime]);
 
   useInterval(syncWithServer, 10 * MINUTE);
+
   useEffect(() => {
     syncWithServer();
   }, [syncWithServer]);
