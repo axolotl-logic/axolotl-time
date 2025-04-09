@@ -1,8 +1,10 @@
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import useInterval from "use-interval";
 import { naturalToStr, padTime, splitTimeMs } from "~/lib/time";
 import { VisualTimer } from "~/client/components/visual-timer";
 import { Link } from "./ui/link";
+import { putTimer } from "../db";
+import { handleError } from "~/lib/error";
 
 interface TimerPageProps {
   workLength: number;
@@ -17,6 +19,10 @@ export function TimerPage({
   startTime,
   others,
 }: TimerPageProps) {
+  useEffect(() => {
+    putTimer({ workLength, breakLength, startTime }).catch(handleError);
+  }, [workLength, breakLength, startTime]);
+
   const [periodTime, setPeriodTime] = useState(() =>
     getPeriodTime({ workLength, breakLength, startTime }),
   );
