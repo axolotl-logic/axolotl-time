@@ -4,9 +4,9 @@ subgraph 0["src"]
 subgraph 1["app"]
 2["layout.tsx"]
 6["manifest.ts"]
-N["page.tsx"]
-subgraph T["timer"]
-U["page.tsx"]
+9["page.tsx"]
+subgraph J["timer"]
+K["page.tsx"]
 end
 end
 subgraph 3["client"]
@@ -15,66 +15,67 @@ subgraph 4["styles"]
 end
 subgraph 7["components"]
 8["loading-page.tsx"]
-O["home-page.tsx"]
-P["timer-form.tsx"]
-subgraph Q["ui"]
-R["button.tsx"]
+A["home-page.tsx"]
+B["timer-form.tsx"]
+subgraph C["ui"]
+D["button.tsx"]
 W["link.tsx"]
 end
-V["timer-page.tsx"]
+L["timer-page.tsx"]
 Y["visual-timer.tsx"]
 end
-subgraph 9["hooks"]
-A["sync.tsx"]
-B["useUserId.ts"]
+G["db.ts"]
+subgraph M["hooks"]
+N["sync.tsx"]
+O["useUserId.ts"]
 end
-C["db.ts"]
 X["nav.ts"]
 end
-subgraph D["lib"]
-E["error.ts"]
-F["time.ts"]
-S["utils.ts"]
+subgraph E["lib"]
+F["utils.ts"]
+H["time.ts"]
+I["error.ts"]
 end
-subgraph G["server"]
-subgraph H["actions"]
-I["index.ts"]
+subgraph P["server"]
+subgraph Q["actions"]
+R["index.ts"]
 end
-subgraph J["db"]
-K["schema.ts"]
-L["index.ts"]
+subgraph S["db"]
+T["schema.ts"]
+U["index.ts"]
 end
-M["env.ts"]
+V["env.ts"]
 end
 end
 2-->6
 2-->8
-2-->A
 2-->5
+9-->A
 A-->B
-A-->C
-A-->E
-A-->F
-A-->I
-F-->E
-I-->K
-I-->L
-L-->K
-L-->M
+B-->D
+B-->G
+B-->H
+D-->F
+H-->I
+K-->L
+K-->H
+L-->G
+L-->N
+L-->W
+L-->Y
+L-->I
+L-->H
 N-->O
-O-->P
-P-->R
-P-->C
-P-->F
-R-->S
+N-->G
+N-->R
+R-->T
+R-->U
+U-->T
 U-->V
-U-->F
-V-->C
-V-->W
-V-->Y
-V-->E
-V-->F
-W-->C
+W-->G
 W-->X
-X-->C
-X-->F
+X-->G
+X-->H
+Y-->G
+Y-->N
+Y-->I
