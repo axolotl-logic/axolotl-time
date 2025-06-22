@@ -27,8 +27,8 @@ export function HomePage() {
       </p>
       <p className="text-justify text-neutral-200">
         Be guided alongside others through short sprints of work and rest by our
-        minimalist visual timer. Best of all? It works offline and will always
-        be free and open source!
+        minimalist visual timer. Best of all? It will always be free and open
+        source!
       </p>
       <p className="flex gap-2">
         <a

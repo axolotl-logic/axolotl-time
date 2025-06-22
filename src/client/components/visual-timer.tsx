@@ -1,3 +1,10 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { useTimer } from "../db";
+import { syncWithServer } from "../hooks/sync";
+import { handleError } from "~/lib/error";
+
 export function VisualTimer({
   status,
   progress,
@@ -5,6 +12,16 @@ export function VisualTimer({
   status: "break" | "work";
   progress: number;
 }) {
+  const timer = useTimer();
+  const [lastStatus, setLastStatus] = useState(status);
+
+  useEffect(() => {
+    if (status !== lastStatus && timer !== null) {
+      setLastStatus(status);
+      syncWithServer(timer).catch(handleError);
+    }
+  }, [status, setLastStatus, lastStatus, timer]);
+
   let radialColor: string;
   switch (status) {
     case "break":
@@ -15,7 +32,6 @@ export function VisualTimer({
       break;
   }
 
-  //  TODO: Replace with CSS Animation
   return (
     <div
       className={`radial-progress text-5xl ${radialColor}`}

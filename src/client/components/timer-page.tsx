@@ -3,24 +3,28 @@ import useInterval from "use-interval";
 import { naturalToStr, padTime, splitTimeMs } from "~/lib/time";
 import { VisualTimer } from "~/client/components/visual-timer";
 import { Link } from "./ui/link";
-import { putTimer } from "../db";
+import { putTimer, useTimer } from "../db";
 import { handleError } from "~/lib/error";
+import { syncWithServer } from "../hooks/sync";
 
 interface TimerPageProps {
   workLength: number;
   breakLength: number;
   startTime: number;
-  others: number;
 }
 
 export function TimerPage({
   workLength,
   breakLength,
   startTime,
-  others,
 }: TimerPageProps) {
+  const timerForBuddies = useTimer();
+  const others = timerForBuddies?.others ?? 0;
+
   useEffect(() => {
-    putTimer({ workLength, breakLength, startTime }).catch(handleError);
+    const timer = { workLength, breakLength, startTime };
+    putTimer(timer).catch(handleError);
+    syncWithServer(timer).catch(handleError);
   }, [workLength, breakLength, startTime]);
 
   const [periodTime, setPeriodTime] = useState(() =>

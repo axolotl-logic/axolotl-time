@@ -1,14 +1,13 @@
-import { useEffect } from "react";
-import { useLocalStorage } from "usehooks-ts";
 import { v4 as uuidv4 } from "uuid";
 
-export function useUserId(): string {
-  const [userId, setUserId] = useLocalStorage("function:useUserId", () =>
-    uuidv4(),
-  );
-  useEffect(() => {
-    setUserId(userId);
-  }, [userId, setUserId]);
+const USER_ID_KEY = "userId";
+
+export function getUserId(): string {
+  let userId = localStorage.getItem(USER_ID_KEY);
+  if (!userId) {
+    userId = uuidv4();
+    localStorage.setItem(USER_ID_KEY, userId);
+  }
 
   return userId;
 }

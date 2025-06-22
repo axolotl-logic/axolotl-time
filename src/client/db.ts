@@ -39,9 +39,8 @@ const db = new Dexie("AppState") as Dexie & {
   timer: EntityTable<TimerState, "id">;
 };
 
-db.version(8).stores({
+db.version(9).stores({
   timer: "id,workLength,breakLength,startTime,createdAt,sessionId,others",
-  nav: "sessionId,route,createdAt",
 });
 
 export { db };
