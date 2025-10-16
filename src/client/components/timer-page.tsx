@@ -52,9 +52,7 @@ export function TimerPage({
       role="main"
       className={`animate-fade-in-slow fixed top-0 left-0 z-10 flex size-full h-screen max-h-dvh flex-col items-center justify-center gap-8 bg-zinc-950 p-8`}
     >
-      <div className="mt-auto">
-        <VisualTimer status={status} progress={progress} />
-      </div>
+      <VisualTimer status={status} progress={progress} />
       <div className="flex flex-col flex-wrap items-center justify-between gap-2">
         <div className="font-mono text-2xl">
           {hours > 0 && <span>{padTime(hours)}:</span>}
