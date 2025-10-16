@@ -12,7 +12,6 @@ describe("TimerPage", () => {
         workLength={HOUR}
         breakLength={HOUR}
         startTime={0}
-        others={0}
       />,
     );
 
@@ -28,7 +27,6 @@ describe("TimerPage", () => {
         workLength={HOUR}
         breakLength={HOUR}
         startTime={0}
-        others={0}
       />,
     );
 
