@@ -5,15 +5,15 @@
   "type": "module",
   "scripts": {
     "build": "next build",
-    "check": "next lint && tsc --noEmit",
+    "check": "eslint . && tsc --noEmit",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
     "db:push": "drizzle-kit push",
     "db:studio": "drizzle-kit studio",
     "deps:graph": "npx depcruise --exclude '^node_modules' --output-type dot src | dot -T svg > reports/dependency-graph.svg && npx depcruise --exclude '^node_modules' --output-type mermaid src > reports/dependency-graph.mmd",
     "dev": "next dev --turbo",
-    "lint": "tsc --noEmit && next lint",
-    "lint:fix": "next lint --fix",
+    "lint": "tsc --noEmit && eslint .",
+    "lint:fix": "eslint --fix .",
     "lint:deps": "npx depcruise --exclude '^node_modules' src",
     "preview": "next build && next start",
     "start": "next start",
@@ -53,6 +53,7 @@
     "zod": "^3.23.3"
   },
   "devDependencies": {
+    "@eslint/eslintrc": "^3.3.1",
     "@eslint/js": "^9.23.0",
     "@playwright/test": "^1.51.1",
     "@tailwindcss/postcss": "^4.0.12",
