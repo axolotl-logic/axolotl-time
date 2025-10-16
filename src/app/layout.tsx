@@ -19,7 +19,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <div
-          className={`dark flex min-h-dvh flex-col items-center justify-center bg-zinc-950`}
+          className={`dark text-white flex min-h-dvh flex-col items-center justify-center bg-zinc-950`}
         >
           <Suspense fallback={<LoadingPage />}>{children}</Suspense>
         </div>
